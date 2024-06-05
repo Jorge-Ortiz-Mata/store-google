@@ -42,3 +42,6 @@ In order to implement active storage, you can pass the correct credentials witho
 - ortiz.mata.jorge@gmail.com
 - yorch-devs.com
 - San Luis Potosí, S.L.P. México
+
+
+gcloud iam service-accounts add-iam-policy-binding "yorch-devs-staging@yorch-devs-staging.iam.gserviceaccount.com" --project="yorch-devs-staging" --role="roles/iam.workloadIdentityUser" --member="principalSet://iam.googleapis.com/projects/833586262248/locations/global/workloadIdentityPools/yorch-devs-staging-pool/attribute.repository/Jorge-Ortiz-Mata/store-google"

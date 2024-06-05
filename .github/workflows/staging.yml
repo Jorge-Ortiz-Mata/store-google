@@ -1,0 +1,62 @@
+name: CI/CD Staging
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+  id-token: write
+  deployments: write
+
+jobs:
+  # test:
+  #   name: Run tests
+  #   uses: ./.github/workflows/test.yml
+
+  build-and-deploy:
+    name: Setup, Build, and Deploy
+    runs-on: ubuntu-latest
+    # needs: test
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Authenticate to Google Cloud
+        id: auth
+        uses: google-github-actions/auth@v0.6.0
+        with:
+          service_account: yorch-devs-staging@yorch-devs-staging.iam.gserviceaccount.com
+          workload_identity_provider: projects/833586262248/locations/global/workloadIdentityPools/yorch-devs-staging-pool/providers/github
+
+      - name: Set up Google Cloud SDK
+        uses: google-github-actions/setup-gcloud@v0.6.0
+
+      - name: Authorize push to Google Cloud Artifact Registry
+        run: gcloud auth configure-docker us-central1-docker.pkg.dev
+
+      - name: Build and tag the docker image
+        run: |-
+          docker build --no-cache --platform linux/amd64 -t us-central1-docker.pkg.dev/yorch-devs-staging/store-google/store-google:staging .
+
+      - name: Push the image to the Artifact Registry
+        run: |-
+          docker push us-central1-docker.pkg.dev/yorch-devs-staging/store-google/store-google:staging
+
+      - name: Deploy
+        uses: google-github-actions/deploy-cloudrun@v0.9.0
+        with:
+          region: us-central1
+          service: store-google
+          image: us-central1-docker.pkg.dev/yorch-devs-staging/store-google/store-google:staging
+          secrets: |
+            RAILS_MASTER_KEY=store-google-rails-master-key:latest
+          flags: |-
+            --port 3000
+            --cpu=1
+            --allow-unauthenticated
+            --platform managed
+            --min-instances 0
+            --service-account yorch-devs-staging@yorch-devs-staging.iam.gserviceaccount.com
