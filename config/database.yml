@@ -19,11 +19,6 @@ default: &default
   encoding: unicode
   # For details on connection pooling, see Rails configuration guide
   # https://guides.rubyonrails.org/configuring.html#database-pooling
-  username: postgres
-  password: postgres
-  port: 5432
-  host: localhost
-  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
 
 development:
   adapter: sqlite3
@@ -65,8 +60,4 @@ test:
 production:
   adapter: postgresql
   encoding: unicode
-  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  username: postgres
-  password: postgres1234
-  host: /cloudsql/yorch-devs-staging:us-central1:yorch-devs-staging
-  database: test_database
+  url: postgresql://jorge:jorge@localhost/test_database?host=/cloudsql/yorch-devs-staging:us-central1:yorch-devs-staging
