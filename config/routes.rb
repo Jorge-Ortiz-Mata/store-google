@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :posts
 
   # User Authentication routes.
   resources :users, only: %i[create]

@@ -60,4 +60,5 @@ test:
 production:
   adapter: postgresql
   encoding: unicode
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   url: postgresql://jorge:jorge@localhost/test_database?host=/cloudsql/yorch-devs-staging:us-central1:yorch-devs-staging
