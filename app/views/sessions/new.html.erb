@@ -1,0 +1,36 @@
+<h2>Inicia sesión con tu cuenta</h2>
+
+<div>
+  <%= form_with(model: @session, url: login_path, id: 'session', class: 'flex flex-col w-full gap-5') do |form| %>
+    <div class="flex flex-col w-full items-start gap-1 mb-5">
+      <%= form.label :email, 'Correo electrónico:' %>
+      <%= form.email_field :email, class: "#{error_border(@session.errors.include?(:email))}" %>
+      <% if @session.errors.include?(:email) %>
+        <%= render 'shared/error_input', { object: @session, attribute: :email } %>
+      <% end %>
+    </div>
+
+    <div class="flex flex-col w-full items-start gap-1 mb-5">
+      <%= form.label :password, 'Contraseña:' %>
+      <%= form.password_field :password, class: "#{error_border(@session.errors.include?(:password))}" %>
+      <% if @session.errors.include?(:password) %>
+        <%= render 'shared/error_input', { object: @session, attribute: :password } %>
+      <% end %>
+    </div>
+
+    <div class="flex flex-col items-center justify-center w-full">
+      <%= form.submit 'Iniciar sesión' %>
+    </div>
+  <% end %>
+</div>
+
+<div class="flex flex-col gap-3 items-center justify-center w-full">
+  <%= link_to 'Olvidé mi contraseña', instructions_path %>
+  <%= link_to 'Reenviar correo de confirmación', confirmation_path %>
+  <p>
+    ¿No tienes una cuenta?
+    <%= link_to signup_path do %>
+      Registrate de manera gratuita
+    <% end %>
+  </p>
+</div>

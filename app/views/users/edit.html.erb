@@ -1,0 +1,50 @@
+<%= form_with(model: @update_account, url: update_user_path(current_user.uid), method: :patch, class: 'flex flex-col gap-5 w-full') do |f| %>
+  <div class="flex flex-col w-full items-start">
+    <%= f.label :email, 'Correo electrónico:', class: 'required' %>
+    <%= f.email_field :email, class: "#{error_border(@update_account.errors.include?(:email))}" %>
+    <% if @update_account.errors.include?(:email) %>
+      <%= render 'shared/error_input', { object: @update_account, attribute: :email } %>
+    <% end %>
+  </div>
+
+  <div class="flex flex-col w-full items-start">
+    <%= f.label :password, 'Nueva contraseña:', class: 'required' %>
+    <%= f.password_field :password, class: "#{error_border(@update_account.errors.include?(:password))}" %>
+    <span class="text-sm text-sidebarTextColor font-medium italic">La contraseña debe tener al menos 8 caracteres</span>
+    <% if @update_account.errors.include?(:password) %>
+      <%= render 'shared/error_input', { object: @update_account, attribute: :password } %>
+    <% end %>
+  </div>
+
+  <div class="flex flex-col w-full items-start">
+    <%= f.label :password_confirmation, 'Confirmación de nueva contraseña:', class: 'required' %>
+    <%= f.password_field :password_confirmation, class: "#{error_border(@update_account.errors.include?(:password_confirmation))}" %>
+    <% if @update_account.errors.include?(:password_confirmation) %>
+      <%= render 'shared/error_input', { object: @update_account, attribute: :password_confirmation } %>
+    <% end %>
+  </div>
+
+  <div class="flex flex-col w-full items-start">
+    <%= f.label :old_password, 'Porfavor, ingresa tu contraseña anterior para guardar los cambios', class: 'required' %>
+    <%= f.password_field :old_password, class: "#{error_border(@update_account.errors.include?(:old_password))}" %>
+    <% if @update_account.errors.include?(:old_password) %>
+      <%= render 'shared/error_input', { object: @update_account, attribute: :old_password } %>
+    <% end %>
+  </div>
+
+  <div>
+    <%= f.submit 'Actualizar cuenta' %>
+  </div>
+<% end %>
+
+<%= link_to user_path(current_user.uid) do %>
+  <span>Regresar</span>
+<% end %>
+
+<div>
+  <p>Zona de riesgo:</p>
+  <p>Una vez que canceles tu cuenta, toda tu información será eliminada de nuestros servidores</p>
+  <%= button_to destroy_user_path, method: :delete, form: { data: { turbo_confirm: '¿Estás seguro de inhabilitar este registro?' } } do %>
+    Cancelar cuenta
+  <% end %>
+</div>

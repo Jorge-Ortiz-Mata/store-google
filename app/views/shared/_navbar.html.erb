@@ -1,0 +1,43 @@
+<nav class="flex items-center justify-between w-full p-5 bg-gray-100">
+  <ul class="flex items-center w-full gap-5">
+    <li class="font-bold text-xl">
+      <%= link_to root_path, id: 'root_path' do %>
+        My app
+      <% end %>
+    </li>
+  </ul>
+  <ul class="flex items-center justify-end w-full gap-5">
+    <% if current_user %>
+      <li class="font-semibold">
+        <%= button_to logout_path, method: :delete, id: 'close_session' do %>
+          Log out
+        <% end %>
+      </li>
+
+      <li class="font-semibold">
+        <%= button_to user_path(current_user.uid), method: :get, id: 'show_user' do %>
+          Profile
+        <% end %>
+      </li>
+
+      <li class="font-semibold">
+        <%= button_to edit_user_path(current_user.uid), method: :get, id: 'edit_user' do %>
+          Edit Account
+        <% end %>
+      </li>
+
+    <% else %>
+      <li class="font-semibold">
+        <%= link_to login_path, id: 'login_navbar_link' do %>
+          Login
+        <% end %>
+      </li>
+
+      <li class="font-semibold">
+        <%= link_to signup_path, id: 'signup_navbar_link' do %>
+          Sign Up
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
+</nav>

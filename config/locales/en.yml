@@ -1,0 +1,97 @@
+en:
+  date:
+    day_names:
+      - Domingo
+      - Lunes
+      - Martes
+      - Miércoles
+      - Jueves
+      - Viernes
+      - Sábado
+    month_names:
+      -
+      - Enero
+      - Febrero
+      - Marzo
+      - Abril
+      - Mayo
+      - Junio
+      - Julio
+      - Agosto
+      - Septiembre
+      - Octubre
+      - Noviembre
+      - Diciembre
+  time:
+    formats:
+      long: '%A, %B %d, %Y'
+      short: '%b %d, %Y'
+
+  activerecord:
+    attributes:
+      user:
+        email: El correo electrónico
+        password: La contraseña
+        password_confirmation: La confirmación de la contraseña
+
+    errors:
+      messages:
+        blank: 'no debe estar en blanco'
+        taken: 'ya ha sido registrado'
+        greater_than: 'debe ser mayor a %{count}'
+        greater_than_or_equal_to: 'debe ser mayor o igual a %{count}'
+        too_long: 'debe tener como máximo %{count} caracteres'
+        too_short: 'debe tener como mínimo %{count} caracteres'
+        wrong_length: 'debe ser de %{count} caracteres'
+        confirmation: 'y la contraseña son diferentes'
+        required: 'debe estar presente'
+
+  activemodel:
+    attributes:
+      # api/session:
+      #   email: El correo electrónico
+      #   password: La contraseña
+
+      authentication/session:
+        email: El correo electrónico
+        password: La contraseña
+      authentication/update_account:
+        email: El correo electrónico
+        password: La nueva contraseña
+        password_confirmation: La confirmación de la nueva contraseña
+        old_password: La contraseña actual
+      authentication/instructions:
+        email: El correo electrónico
+      authentication/recover:
+        password: La nueva contraseña
+        password_confirmation: La confirmación de la nueva contraseña
+      authentication/confirmation:
+        email: El correo electrónico
+
+    errors:
+      models:
+        # api/session:
+        #   user_nil: 'no está asociado a ningun usuario de la aplicación'
+        #   incorrect_credentials: 'es incorrecta'
+        #   is_not_confirmed: 'no ha sido confirmado.'
+
+        authentication/session:
+          user_nil: 'no está asociado a ningun usuario de la aplicación'
+          incorrect_credentials: 'es incorrecta'
+          is_not_confirmed: 'no ha sido confirmado.'
+        authentication/update_account:
+          passwords_do_not_match: 'y la nueva contraseña son diferentes'
+          incorrect_credentials: 'es incorrecta'
+        authentication/instructions:
+          does_not_exist: 'no está asociado a ningun usuario'
+        authentication/recover:
+          are_not_equal: 'es diferente a la confirmación de la contraseña'
+        authentication/confirmation:
+          does_not_exist: 'no está asociado a ningun usuario'
+
+      messages:
+        blank: 'no debe estar en blanco'
+        taken: 'ya ha sido registrado'
+        too_short: 'debe ser mínimo de %{count} caracteres'
+        too_long: 'debe tener como máximo %{count} caracteres'
+        wrong_length: 'debe ser de %{count} caracteres'
