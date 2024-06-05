@@ -2,7 +2,7 @@
 FROM ruby:3.0.4 as base
 
 # Create a directory
-WORKDIR /rails-getting-started
+WORKDIR /store-google
 
 # Install dependencies in the container
 RUN apt-get update \
@@ -44,4 +44,4 @@ ENTRYPOINT ["entrypoint.sh"]
 EXPOSE 3000
 
 # Start the Rails Application
-CMD ["sh", "production-deployment.sh"]
+CMD ["sh", "prod.sh"]
